@@ -21,7 +21,7 @@
                     <div class="kt-subheader   kt-grid__item" id="kt_subheader">
                         <div class="kt-container  kt-container--fluid ">
                             <div class="kt-subheader__main">
-                                @yield('subheader-main')
+                                @yield('subheader')
                             </div>
                             <div class="kt-subheader__toolbar">
                                 <div class="kt-subheader__wrapper">
@@ -49,9 +49,7 @@
                         </div>
                     </div>
                     <div class="kt-container  kt-container--fluid  kt-grid__item kt-grid__item--fluid">
-                        <div class="container-fluid">
-                            @yield('content')
-                        </div>
+                        @yield('content')
                     </div>
                 </div>
 

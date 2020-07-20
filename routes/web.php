@@ -16,3 +16,6 @@ Auth::routes(['register' => false, 'verify' => false]);
 
 //dashboard
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
+
+//konsentrasi
+Route::resource('konsentrasi', 'KonsentrasiController');

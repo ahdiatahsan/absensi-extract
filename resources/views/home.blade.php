@@ -2,7 +2,7 @@
 
 @section('title', 'Dashboard')
 
-@section('subheader-main')
+@section('subheader')
 
 <h3 class="kt-subheader__title">
     Dashboard

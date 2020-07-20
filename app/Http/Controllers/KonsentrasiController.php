@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Konsentrasi;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class KonsentrasiController extends Controller
 {
@@ -12,9 +13,21 @@ class KonsentrasiController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $konsentrasis = Konsentrasi::get();
+
+            return DataTables::of($konsentrasis)
+                ->addColumn('action', function ($konsentrasi) {
+                    return view('konsentrasi.index_action', compact('konsentrasi'))->render();
+                })
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('konsentrasi.index');
     }
 
     /**
@@ -24,7 +37,7 @@ class KonsentrasiController extends Controller
      */
     public function create()
     {
-        //
+        return view('konsentrasi.create');
     }
 
     /**
@@ -35,7 +48,15 @@ class KonsentrasiController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        Konsentrasi::create([
+            'nama' => $request['nama']
+        ]);
+
+        return redirect()->route('konsentrasi.index')->with('success', 'Konsentrasi ' . $request['nama'] . ' telah ditambah.');
     }
 
     /**
@@ -57,7 +78,7 @@ class KonsentrasiController extends Controller
      */
     public function edit(Konsentrasi $konsentrasi)
     {
-        //
+        return view('konsentrasi.edit', compact('konsentrasi'));
     }
 
     /**
@@ -69,7 +90,14 @@ class KonsentrasiController extends Controller
      */
     public function update(Request $request, Konsentrasi $konsentrasi)
     {
-        //
+        $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        $konsentrasi->nama = $request['nama'];
+        $konsentrasi->save();
+
+        return redirect()->route('konsentrasi.index')->with('success', 'Konsentrasi ' . $request['old_nama'] . ' telah diubah menjadi ' . $request['nama'] . '.');
     }
 
     /**
@@ -80,6 +108,8 @@ class KonsentrasiController extends Controller
      */
     public function destroy(Konsentrasi $konsentrasi)
     {
-        //
+        $konsentrasi->delete();
+
+        return redirect()->route('konsentrasi.index')->with('success', 'Konsentrasi ' . $konsentrasi->nama . ' telah dihapus.');
     }
 }
