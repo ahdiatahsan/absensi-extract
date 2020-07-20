@@ -19,6 +19,7 @@ class CreateAbsensisTable extends Migration
             $table->unsignedBigInteger('agenda_id');
             $table->dateTime('jam_datang');
             $table->dateTime('jam_pulang');
+            $table->string('status');
             $table->timestamps();
 
             $table->foreign('peserta_id')->references('id')->on('pesertas');

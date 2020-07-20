@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Konsentrasi;
 use App\Peserta;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class PesertaController extends Controller
 {
@@ -12,9 +14,20 @@ class PesertaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $pesertas = Peserta::with('konsentrasi')->get();
+
+            return DataTables::of($pesertas)
+                ->addColumn('action', function ($peserta) {
+                    return view('peserta.index_action', compact('peserta'))->render();
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('peserta.index');
     }
 
     /**
@@ -24,7 +37,8 @@ class PesertaController extends Controller
      */
     public function create()
     {
-        //
+        $konsentrasis = Konsentrasi::orderBy('id')->get();
+        return view('peserta.create', compact('konsentrasis'));
     }
 
     /**
@@ -35,7 +49,19 @@ class PesertaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'noreg' => 'required|max:255|unique:pesertas,noreg',
+            'nama' => 'required|max:255',
+            'konsentrasi' => 'required|max:255',
+        ]);
+
+        Peserta::create([
+            'noreg' => $request['noreg'],
+            'nama' => $request['nama'],
+            'konsentrasi_id' => $request['konsentrasi']
+        ]);
+
+        return redirect()->route('peserta.index')->with('success', 'Peserta (' . $request['noreg'] . ') ' . $request['nama'] . ' telah ditambah.');
     }
 
     /**
@@ -57,7 +83,12 @@ class PesertaController extends Controller
      */
     public function edit(Peserta $peserta)
     {
-        //
+        $konsentrasis = Konsentrasi::orderBy('id')->get();
+
+        $selectedKonsentrasi = Peserta::select('konsentrasi_id')
+            ->where('konsentrasi_id', '=', $peserta->konsentrasi_id)->first();
+
+        return view('peserta.edit', compact('peserta','konsentrasis', 'selectedKonsentrasi'));
     }
 
     /**
@@ -69,7 +100,19 @@ class PesertaController extends Controller
      */
     public function update(Request $request, Peserta $peserta)
     {
-        //
+        $request->validate([
+            'noreg' => "required|max:255|unique:pesertas,noreg,$peserta->id",
+            'nama' => 'required|max:255',
+            'konsentrasi' => 'required|max:255'
+        ]);
+
+        $peserta->noreg = $request['noreg'];
+        $peserta->nama = $request['nama'];
+        $peserta->konsentrasi_id = $request['konsentrasi'];
+        $peserta->save();
+
+        return redirect()->route('peserta.index')
+        ->with('success', 'Peserta (' . $request['old_noreg'] . ') ' . $request['old_nama'] . ' telah diubah menjadi (' . $request['noreg'] . ') ' . $request['nama'] . '.');
     }
 
     /**
@@ -80,6 +123,8 @@ class PesertaController extends Controller
      */
     public function destroy(Peserta $peserta)
     {
-        //
+        $peserta->delete();
+
+        return redirect()->route('peserta.index')->with('success', 'Peserta (' . $peserta->noreg . ') ' . $peserta->nama . ' telah dihapus.');
     }
 }

@@ -22,3 +22,6 @@ Route::resource('agenda', 'AgendaController');
 
 //konsentrasi
 Route::resource('konsentrasi', 'KonsentrasiController');
+
+//peserta
+Route::resource('peserta', 'PesertaController', ['parameters' => ['peserta' => 'peserta']]);

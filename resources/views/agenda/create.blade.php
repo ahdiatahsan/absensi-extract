@@ -35,7 +35,8 @@
           <div class="form-group">
             <label>Nama Agenda</label>
             <input class="form-control @error('nama') is-invalid @enderror" type="text"
-                name="nama" id="nama" placeholder="Program" required autofocus>
+                name="nama" id="nama" placeholder="Pembelajaran Program"
+                value="{{ old('nama') }}" required autofocus>
           </div>
         </div>
 

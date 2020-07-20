@@ -12,7 +12,7 @@ class Absensi extends Model
      * @var array
      */
     protected $fillable = [
-        'peserta_id', 'agenda_id', 'jam_datang', 'jam_pulang'
+        'peserta_id', 'agenda_id', 'jam_datang', 'jam_pulang', 'status'
     ];
 
     public function peserta()
