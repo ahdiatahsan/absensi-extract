@@ -17,5 +17,8 @@ Auth::routes(['register' => false, 'verify' => false]);
 //dashboard
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+//agenda
+Route::resource('agenda', 'AgendaController');
+
 //konsentrasi
 Route::resource('konsentrasi', 'KonsentrasiController');

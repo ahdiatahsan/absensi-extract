@@ -1,18 +1,18 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Ubah Konsentrasi')
+@section('title', 'Ubah Agenda')
 
 @section('subheader')
 
 <h3 class="kt-subheader__title">
-    Konsentrasi
+    Agenda
 </h3>
 <span class="kt-subheader__separator kt-hidden"></span>
 <div class="kt-subheader__breadcrumbs">
     <a href="#" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
     <span class="kt-subheader__breadcrumbs-separator"></span>
     <a href="" class="kt-subheader__breadcrumbs-link">
-        Ubah Data Konsentrasi </a>
+        Ubah Data Agenda </a>
     <!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
 </div>
 
@@ -26,7 +26,7 @@
   </div>
 </div>
 
-<form action="{{ route('konsentrasi.update', $konsentrasi->id) }}" method="POST" enctype="multipart/form-data"
+<form action="{{ route('agenda.update', $agenda->id) }}" method="POST" enctype="multipart/form-data"
   autocomplete="off">
   @csrf
   @method('PATCH')
@@ -35,10 +35,10 @@
       <div class="kt-portlet">
         <div class="kt-portlet__body">
           <div class="form-group">
-            <label>Nama Konsentrasi</label>
-            <input type="hidden" name="old_nama" value="{{ $konsentrasi->nama }}">
+            <label>Nama Agenda</label>
+            <input type="hidden" name="old_nama" value="{{ $agenda->nama }}">
             <input class="form-control @error('nama') is-invalid @enderror" type="text" name="nama" id="nama"
-                value="{{ $konsentrasi->nama }}" required autofocus>
+                value="{{ $agenda->nama }}" required autofocus>
           </div>
         </div>
 

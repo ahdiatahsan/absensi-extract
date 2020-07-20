@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Agenda;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class AgendaController extends Controller
 {
@@ -12,9 +13,21 @@ class AgendaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        if ($request->ajax()) {
+            $agendas = Agenda::get();
+
+            return DataTables::of($agendas)
+                ->addColumn('action', function ($agenda) {
+                    return view('agenda.index_action', compact('agenda'))->render();
+                })
+                ->addIndexColumn()
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('agenda.index');
     }
 
     /**
@@ -24,7 +37,7 @@ class AgendaController extends Controller
      */
     public function create()
     {
-        //
+        return view('agenda.create');
     }
 
     /**
@@ -35,7 +48,15 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        Agenda::create([
+            'nama' => $request['nama']
+        ]);
+
+        return redirect()->route('agenda.index')->with('success', 'Agenda ' . $request['nama'] . ' telah ditambah.');
     }
 
     /**
@@ -57,7 +78,7 @@ class AgendaController extends Controller
      */
     public function edit(Agenda $agenda)
     {
-        //
+        return view('agenda.edit', compact('agenda'));
     }
 
     /**
@@ -69,7 +90,14 @@ class AgendaController extends Controller
      */
     public function update(Request $request, Agenda $agenda)
     {
-        //
+        $request->validate([
+            'nama' => 'required|max:255'
+        ]);
+
+        $agenda->nama = $request['nama'];
+        $agenda->save();
+
+        return redirect()->route('agenda.index')->with('success', 'Agenda ' . $request['old_nama'] . ' telah diubah menjadi ' . $request['nama'] . '.');
     }
 
     /**
@@ -80,6 +108,8 @@ class AgendaController extends Controller
      */
     public function destroy(Agenda $agenda)
     {
-        //
+        $agenda->delete();
+
+        return redirect()->route('agenda.index')->with('success', 'Agenda ' . $agenda->nama . ' telah dihapus.');
     }
 }
