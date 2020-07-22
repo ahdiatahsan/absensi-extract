@@ -112,18 +112,19 @@ class AbsensiController extends Controller
         ]);
 
         try {
-            $noreg = Peserta::findOrFail($request->noreg);
-            $peserta_id = Peserta::select('id')->where('noreg', '=', $noreg->id)->get();
+            $noreg = Peserta::select('id','noreg')->where('noreg', '=', $request->noreg)->firstorFail();
         } catch(ModelNotFoundException $err) {
             return redirect()->route('absensi.create')
             ->with('not_found', 'No. registrasi yang Anda masukkan tidak dapat ditemukan.');
         }
 
+        //dd($noreg);
+
         $agenda = Agenda::findOrFail($request->agenda);
         $agenda_nama = Agenda::select('nama')->where('id', '=', $agenda->id)->get();
 
         Absensi::create([
-            'peserta_id' => $peserta_id[0]['id'],
+            'peserta_id' => $noreg['id'],
             'agenda_id' => $request['agenda'],
             'jam_datang' => date('Y-m-d H:i:s'),
             'jam_pulang' => date('Y-m-d H:i:s'),
