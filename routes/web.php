@@ -17,6 +17,12 @@ Auth::routes(['register' => false, 'verify' => false]);
 //dashboard
 Route::get('/dashboard', 'HomeController@index')->name('dashboard');
 
+//absensi
+Route::resource('absensi', 'AbsensiController');
+Route::put('absensi/{absensi}', 'AbsensiController@absensi_konfirmasi')->name('absensi_konfirmasi');
+Route::get('tabel_absensi_terpenuhi', 'AbsensiController@absensi_terpenuhi')->name('absensi_terpenuhi');
+Route::get('tabel_absensi_belum_terpenuhi', 'AbsensiController@absensi_belum_terpenuhi')->name('absensi_belum_terpenuhi');
+
 //agenda
 Route::resource('agenda', 'AgendaController');
 
