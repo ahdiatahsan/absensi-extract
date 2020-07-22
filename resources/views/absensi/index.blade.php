@@ -84,7 +84,7 @@
                         <div class="table-responsive">
                         <!--begin: Datatable -->
                         <table class="table table-striped table-bordered table-hover terpenuhi no-footer dtr-inline"
-                            id="table" role="grid" aria-describedby="table">
+                            id="table" role="grid" aria-describedby="table" width="100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
@@ -104,8 +104,8 @@
                     <div class="tab-pane" id="belum" role="tabpanel">
                         <div class="table-responsive">
                         <!--begin: Datatable -->
-                        <table class="table table-responsive table-striped table-bordered table-hover belum no-footer dtr-inline"
-                            id="table" role="grid" aria-describedby="table">
+                        <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
+                            id="table" role="grid" aria-describedby="table" width="100%">
                             <thead>
                                 <tr>
                                     <th>No.</th>
