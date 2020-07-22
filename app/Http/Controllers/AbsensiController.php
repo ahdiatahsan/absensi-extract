@@ -118,8 +118,6 @@ class AbsensiController extends Controller
             ->with('not_found', 'No. registrasi yang Anda masukkan tidak dapat ditemukan.');
         }
 
-        //dd($noreg);
-
         $agenda = Agenda::findOrFail($request->agenda);
         $agenda_nama = Agenda::select('nama')->where('id', '=', $agenda->id)->get();
 
