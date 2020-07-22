@@ -30,7 +30,7 @@
                             <a class="kt-link" href="#">Peserta Extract</a>
                         </h3>
                         <div class="kt-iconbox__content">
-                            99
+                            {{ $peserta }}
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                             <a class="kt-link" href="#">Konsentrasi Pembelajaran</a>
                         </h3>
                         <div class="kt-iconbox__content">
-                            4
+                            {{ $konsentrasi }}
                         </div>
                     </div>
                 </div>
@@ -80,7 +80,7 @@
                             <a class="kt-link" href="#">Agenda Extract</a>
                         </h3>
                         <div class="kt-iconbox__content">
-                            10
+                            {{ $agenda }}
                         </div>
                     </div>
                 </div>
