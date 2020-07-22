@@ -11,7 +11,7 @@ class KonsentrasiSeeder extends Seeder
      */
     public function run()
     {
-        // Insert default record to users table
+        // Insert default record to konsentrasis table
         DB::table('konsentrasis')->insert(
             [
                 [

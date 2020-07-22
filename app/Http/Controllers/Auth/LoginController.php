@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -26,11 +27,19 @@ class LoginController extends Controller
      *
      * @var string
      */
-    //protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = 'dashboard';
 
-    protected function redirectTo()
+    /**
+     * Where to redirect users after logout.
+     *
+     * @var string
+     */
+    public function logout(Request $request)
     {
-        return '/dashboard';
+        $this->guard()->logout();
+        $request->session()->flush();
+        return $this->loggedOut($request) ?:
+        redirect('/login');
     }
 
     /**

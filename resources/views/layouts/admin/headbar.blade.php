@@ -10,7 +10,7 @@
       <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="0px,0px">
         <div class="kt-header__topbar-user">
           <span class="kt-header__topbar-username kt-hidden-mobile">
-            <strong>Admin{{-- Auth::user()->fullname --}}</strong>
+            <strong>{{ Auth::user()->name }}</strong>
           </span>
           <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold">
             <i class="flaticon-user"></i>
@@ -26,7 +26,7 @@
             </span>
           </div>
           <div class="kt-user-card__name text-dark">
-            <h5><strong>Admin{{-- Auth::user()->fullname --}}</strong></h5>
+            <h5><strong>{{ Auth::user()->name }}</strong></h5>
             <h6>
               Administrator
             </h6>

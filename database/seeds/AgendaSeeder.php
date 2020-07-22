@@ -11,7 +11,7 @@ class AgendaSeeder extends Seeder
      */
     public function run()
     {
-        // Insert default record to users table
+        // Insert default record to agendas table
         DB::table('agendas')->insert(
             [
                 [

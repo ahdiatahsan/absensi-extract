@@ -13,5 +13,6 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(AgendaSeeder::class); //seed tabel agenda
         $this->call(KonsentrasiSeeder::class); //seed tabel konsentrasi
+        $this->call(UserSeeder::class); //seed tabel user
     }
 }
