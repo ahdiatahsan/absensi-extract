@@ -81,6 +81,7 @@
                 </ul>
                 <div class="tab-content">
                     <div class="tab-pane active" id="terpenuhi" role="tabpanel">
+                        <div class="table-responsive">
                         <!--begin: Datatable -->
                         <table class="table table-striped table-bordered table-hover terpenuhi no-footer dtr-inline"
                             id="table" role="grid" aria-describedby="table">
@@ -98,10 +99,12 @@
                             </thead>
                         </table>
                         <!--end: Datatable -->
+                        </div>
                     </div>
                     <div class="tab-pane" id="belum" role="tabpanel">
+                        <div class="table-responsive">
                         <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
+                        <table class="table table-responsive table-striped table-bordered table-hover belum no-footer dtr-inline"
                             id="table" role="grid" aria-describedby="table">
                             <thead>
                                 <tr>
@@ -116,6 +119,7 @@
                             </thead>
                         </table>
                         <!--end: Datatable -->
+                        </div>
                     </div>
                 </div>
             </div>
