@@ -34,6 +34,16 @@ class AgendaSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now()
                 ],
+                [
+                'nama' => 'Pembelajaran System Administrator',
+                'created_at' => now(),
+                'updated_at' => now()
+                ],
+                [
+                'nama' => 'Keorganisasian',
+                'created_at' => now(),
+                'updated_at' => now()
+                ],
             ]
         );
     }

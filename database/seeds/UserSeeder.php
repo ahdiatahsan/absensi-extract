@@ -15,6 +15,13 @@ class UserSeeder extends Seeder
         DB::table('users')->insert(
             [
                 [
+                'name' => 'Super Admin',
+                'email' => 'superadmin@kedai.or.id',
+                'password' => bcrypt('h3110superadmin.,'),
+                'created_at' => now(),
+                'updated_at' => now()
+                ],
+                [
                 'name' => 'Admin Extract 1',
                 'email' => 'extract01@kedai.or.id',
                 'password' => bcrypt('12341234'),
