@@ -130,6 +130,7 @@ class AbsensiController extends Controller
         ]);
 
         return redirect()->route('absensi.create')
+        ->withInput()
         ->with('success', 'Absensi no. registrasi ' . $request->noreg . '
                            pada agenda '. $agenda_nama[0]['nama'] . ' ( ' . date('d-m-Y')  .' ) telah ditambahkan.');
     }

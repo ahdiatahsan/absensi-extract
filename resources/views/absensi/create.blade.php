@@ -38,9 +38,9 @@
                         <select class="form-control @error('agenda') is-invalid @enderror" id="agenda"
                             name="agenda" required>
                             @foreach ($agendas as $agenda)
-                            <option value="{{ $agenda->id }}">
-                                {{ $agenda->nama }}
-                            </option>
+                                <option value="{{ $agenda->id }}" {{ (old('agenda') == $agenda->id) ? 'selected' : '' }}>
+                                    {{ $agenda->nama }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
