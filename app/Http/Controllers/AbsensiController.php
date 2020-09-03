@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Absensi;
 use App\Agenda;
 use App\Peserta;
+use App\Tahap;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\DataTables;
@@ -29,7 +30,8 @@ class AbsensiController extends Controller
      */
     public function index()
     {
-        return view('absensi.index');
+        $tahaps = Tahap::orderBy('id')->get();
+        return view('absensi.index', compact('tahaps'));
     }
 
     /**
@@ -95,7 +97,8 @@ class AbsensiController extends Controller
     public function create()
     {
         $agendas = Agenda::orderBy('id')->get();
-        return view('absensi.create', compact('agendas'));
+        $tahaps = Tahap::orderBy('id')->get();
+        return view('absensi.create', compact('agendas', 'tahaps'));
     }
 
     /**
@@ -108,6 +111,7 @@ class AbsensiController extends Controller
     {
         $request->validate([
             'noreg' => 'required|max:255',
+            'tahap' => 'required|max:255',
             'agenda' => 'required|max:255',
         ]);
 
@@ -121,8 +125,12 @@ class AbsensiController extends Controller
         $agenda = Agenda::findOrFail($request->agenda);
         $agenda_nama = Agenda::select('nama')->where('id', '=', $agenda->id)->get();
 
+        $tahap = Tahap::findOrFail($request->tahap);
+        $tahap_nama = Tahap::select('nama')->where('id', '=', $tahap->id)->get();
+
         Absensi::create([
             'peserta_id' => $noreg['id'],
+            'tahap_id' => $request['tahap'],
             'agenda_id' => $request['agenda'],
             'jam_datang' => date('Y-m-d H:i:s'),
             'jam_pulang' => date('Y-m-d H:i:s'),
@@ -131,7 +139,7 @@ class AbsensiController extends Controller
 
         return redirect()->route('absensi.create')
         ->withInput()
-        ->with('success', 'Absensi no. registrasi ' . $request->noreg . '
+        ->with('success', 'Absensi '. $tahap_nama[0]['nama'] .' oleh no. registrasi ' . $request->noreg . '
                            pada agenda '. $agenda_nama[0]['nama'] . ' ( ' . date('d-m-Y')  .' ) telah ditambahkan.');
     }
 
@@ -157,11 +165,14 @@ class AbsensiController extends Controller
         $peserta = Peserta::select('noreg')->where('id', '=', $absensi->peserta_id)->get();
 
         $agendas = Agenda::orderBy('id')->get();
-
         $selectedAgenda = Absensi::with('agenda')->select('agenda_id')
             ->where('agenda_id', '=', $absensi->agenda_id)->first();
 
-        return view('absensi.edit', compact('absensi','agendas', 'selectedAgenda', 'peserta'));
+        $tahaps = Tahap::orderBy('id')->get();
+        $selectedTahap = Absensi::with('tahap')->select('tahap_id')
+            ->where('tahap_id', '=', $absensi->tahap_id)->first();
+
+        return view('absensi.edit', compact('absensi', 'agendas', 'selectedAgenda', 'tahaps', 'selectedTahap', 'peserta'));
     }
 
     /**
@@ -174,18 +185,19 @@ class AbsensiController extends Controller
     public function update(Request $request, Absensi $absensi)
     {
         $request->validate([
+            'tahap' => 'required|max:255',
             'agenda' => 'required|max:255',
         ]);
 
+        $absensi->tahap_id = $request['tahap'];
         $absensi->agenda_id = $request['agenda'];
         $absensi->save();
 
         $tanggal = (new Carbon($request['tanggal']))->format('d-m-Y');
-        $agenda_new = Agenda::select('nama')->where('id', '=', $request['agenda'])->get();
 
         return redirect()->route('absensi.index')
-        ->with('success', 'Absensi no. registrasi ' . $request['noreg'] . ' pada agenda '. $request['old_agenda'] . ' - ' . $tanggal .
-        ' telah diubah menjadi agenda ' . $agenda_new[0]['nama'] . ' .');
+        ->with('success', 'Data absensi peserta no. registrasi ' . $request['noreg'] . ' pada agenda '. $request['old_agenda'] . ' - ' . $tanggal .
+               ' , ' . $request['old_tahap'] .' berhasil diubah.');
     }
 
     /**
@@ -204,9 +216,10 @@ class AbsensiController extends Controller
         $tanggal = (new Carbon($absensi->jam_datang))->format('d-m-Y');
         $noreg = Peserta::select('noreg')->where('id', '=', $absensi->peserta_id)->get();
         $agenda = Agenda::select('nama')->where('id', '=', $absensi->agenda_id)->get();
+        $tahap = Tahap::select('nama')->where('id', '=', $absensi->tahap_id)->get();
 
         return redirect()->route('absensi.index')
-        ->with('success', 'Absensi no. registrasi' . $noreg[0]['noreg'] . ' pada agenda '. $agenda[0]['nama'] . ' - ' . $tanggal .
+        ->with('success', 'Absensi '. $tahap[0]['nama'] .' no. registrasi' . $noreg[0]['noreg'] . ' pada agenda '. $agenda[0]['nama'] . ' - ' . $tanggal .
         ' telah dikonfimasi jam pulangnya.');
     }
 
@@ -218,12 +231,12 @@ class AbsensiController extends Controller
      */
     public function destroy($id)
     {
-        $absensi = Absensi::with('peserta', 'agenda')->findOrFail($id);
+        $absensi = Absensi::with('peserta', 'agenda', 'tahap')->findOrFail($id);
         $tanggal = (new Carbon($absensi->jam_datang))->format('d-m-Y');
         $absensi->delete();
 
         return redirect()->route('absensi.index')
-        ->with('success', 'Absensi (' . $absensi->peserta->noreg . ') ' . $absensi->peserta->nama .
+        ->with('success', 'Absensi '. $absensi->tahap->nama .' oleh (' . $absensi->peserta->noreg . ') ' . $absensi->peserta->nama .
                           ' pada agenda '. $absensi->agenda->nama . ' ( ' . $tanggal .' ) telah dihapus.');
     }
 }

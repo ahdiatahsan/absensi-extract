@@ -46,9 +46,25 @@
                         <input class="form-control @error('tanggal') is-invalid @enderror" type="text" name="tanggal"
                             id="tanggal" value="{{ $absensi->jam_datang }}" hidden>
 
+                        <input class="form-control @error('old_tahap') is-invalid @enderror" type="text" name="old_tahap"
+                            id="old_tahap" value="{{ $absensi->tahap->nama }}" hidden>
+
                         <input class="form-control @error('old_agenda') is-invalid @enderror" type="text" name="old_agenda"
                             id="old_agenda" value="{{ $absensi->agenda->nama }}" hidden>
 
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tahap</label>
+                        <select class="form-control @error('tahap') is-invalid @enderror" id="tahap"
+                            name="tahap" required>
+                            @foreach ($tahaps as $tahap)
+                            <option value="{{ $tahap->id }}"
+                                {{ ($tahap->id == $selectedTahap->tahap_id) ? 'selected' : '' }}>
+                                {{ $tahap->nama }}
+                            </option>
+                            @endforeach
+                        </select>
                     </div>
 
                     <div class="form-group">

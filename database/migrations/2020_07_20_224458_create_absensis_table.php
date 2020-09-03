@@ -16,6 +16,7 @@ class CreateAbsensisTable extends Migration
         Schema::create('absensis', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('peserta_id');
+            $table->unsignedBigInteger('tahap_id');
             $table->unsignedBigInteger('agenda_id');
             $table->dateTime('jam_datang');
             $table->dateTime('jam_pulang');
@@ -23,6 +24,7 @@ class CreateAbsensisTable extends Migration
             $table->timestamps();
 
             $table->foreign('peserta_id')->references('id')->on('pesertas');
+            $table->foreign('tahap_id')->references('id')->on('tahaps');
             $table->foreign('agenda_id')->references('id')->on('agendas');
         });
     }

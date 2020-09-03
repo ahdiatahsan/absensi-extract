@@ -12,12 +12,17 @@ class Absensi extends Model
      * @var array
      */
     protected $fillable = [
-        'peserta_id', 'agenda_id', 'jam_datang', 'jam_pulang', 'status'
+        'peserta_id', 'tahap_id', 'agenda_id', 'jam_datang', 'jam_pulang', 'status'
     ];
 
     public function peserta()
     {
         return $this->belongsTo('App\Peserta', 'peserta_id');
+    }
+
+    public function tahap()
+    {
+        return $this->belongsTo('App\Tahap', 'tahap_id');
     }
 
     public function agenda()

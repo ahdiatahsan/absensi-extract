@@ -73,13 +73,33 @@
             <div class="kt-portlet__body">
                 <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-success" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link active" data-toggle="tab" href="#terpenuhi" role="tab">Absen Terpenuhi</a>
+                        <a class="nav-link active" data-toggle="tab" href="#belum" role="tab">Belum Absen Pulang</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" href="#belum" role="tab">Belum Absen Pulang</a>
+                        <a class="nav-link" data-toggle="tab" href="#terpenuhi" role="tab">Absen Terpenuhi</a>
                     </li>
                 </ul>
                 <div class="tab-content">
+                    <div class="tab-pane" id="belum" role="tabpanel">
+                        <div class="table-responsive">
+                        <!--begin: Datatable -->
+                        <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
+                            id="table" role="grid" aria-describedby="table" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>No. Registrasi</th>
+                                    <th>Nama Lengkap</th>
+                                    <th>Agenda</th>
+                                    <th>Tanggal</th>
+                                    <th>Jam Datang</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <!--end: Datatable -->
+                        </div>
+                    </div>
                     <div class="tab-pane active" id="terpenuhi" role="tabpanel">
                         <div class="table-responsive">
                         <!--begin: Datatable -->
@@ -94,26 +114,6 @@
                                     <th>Tanggal</th>
                                     <th>Jam Datang</th>
                                     <th>Jam Pulang</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <!--end: Datatable -->
-                        </div>
-                    </div>
-                    <div class="tab-pane" id="belum" role="tabpanel">
-                        <div class="table-responsive">
-                        <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
-                            id="table" role="grid" aria-describedby="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>No. Registrasi</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>Agenda</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Datang</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>

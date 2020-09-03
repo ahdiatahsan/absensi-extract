@@ -30,6 +30,11 @@ class KonsentrasiSeeder extends Seeder
                 'updated_at' => now()
                 ],
                 [
+                'nama' => 'System Administrator',
+                'created_at' => now(),
+                'updated_at' => now()
+                ],
+                [
                 'nama' => 'Multimedia',
                 'created_at' => now(),
                 'updated_at' => now()

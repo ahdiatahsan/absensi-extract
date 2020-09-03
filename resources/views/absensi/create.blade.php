@@ -34,6 +34,18 @@
                 <div class="kt-portlet__body">
 
                     <div class="form-group">
+                        <label>Tahap</label>
+                        <select class="form-control @error('agenda') is-invalid @enderror" id="tahap"
+                            name="tahap" required>
+                            @foreach ($tahaps as $tahap)
+                                <option value="{{ $tahap->id }}" {{ (old('tahap') == $tahap->id) ? 'selected' : '' }}>
+                                    {{ $tahap->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
                         <label>Agenda</label>
                         <select class="form-control @error('agenda') is-invalid @enderror" id="agenda"
                             name="agenda" required>
