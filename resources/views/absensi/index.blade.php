@@ -71,6 +71,30 @@
                 </div>
             </div>
             <div class="kt-portlet__body">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group row">
+                            <label for="filter_tahap" class="col-sm-6 col-md-4 col-form-label">Pilih Tahap Extract :</label>
+                            <div class="col-8">
+                                <select class="form-control" name="filter_tahap" id="filter_tahap" required>
+                                    <option value="" selected hidden>- Pilih Tahap Extract -</option>
+                                    @foreach ($tahaps as $tahap)
+                                        <option value="{{ $tahap->id }}">
+                                            {{ $tahap->nama }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                            <button type="button" name="filter" id="filter" class="btn btn-success">Filter</button>
+                            <button type="button" name="reset" id="reset" class="btn btn-danger">Reset</button>
+                        </div>
+                    </div>
+                </div>
+
                 <ul class="nav nav-tabs nav-tabs-line nav-tabs-line-2x nav-tabs-line-success" role="tablist">
                     <li class="nav-item">
                         <a class="nav-link active" data-toggle="tab" href="#belum" role="tab">Belum Absen Pulang</a>
@@ -79,46 +103,47 @@
                         <a class="nav-link" data-toggle="tab" href="#terpenuhi" role="tab">Absen Terpenuhi</a>
                     </li>
                 </ul>
+
                 <div class="tab-content">
-                    <div class="tab-pane" id="belum" role="tabpanel">
+                    <div class="tab-pane active" id="belum" role="tabpanel">
                         <div class="table-responsive">
-                        <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
-                            id="table" role="grid" aria-describedby="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>No. Registrasi</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>Agenda</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Datang</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <!--end: Datatable -->
+                            <!--begin: Datatable -->
+                            <table class="table table-striped table-bordered table-hover belum no-footer dtr-inline"
+                                id="tabel_belum" role="grid" aria-describedby="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>No. Registrasi</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Agenda</th>
+                                        <th>Tanggal</th>
+                                        <th>Jam Datang</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <!--end: Datatable -->
                         </div>
                     </div>
-                    <div class="tab-pane active" id="terpenuhi" role="tabpanel">
+                    <div class="tab-pane" id="terpenuhi" role="tabpanel">
                         <div class="table-responsive">
-                        <!--begin: Datatable -->
-                        <table class="table table-striped table-bordered table-hover terpenuhi no-footer dtr-inline"
-                            id="table" role="grid" aria-describedby="table" width="100%">
-                            <thead>
-                                <tr>
-                                    <th>No.</th>
-                                    <th>No. Registrasi</th>
-                                    <th>Nama Lengkap</th>
-                                    <th>Agenda</th>
-                                    <th>Tanggal</th>
-                                    <th>Jam Datang</th>
-                                    <th>Jam Pulang</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                        </table>
-                        <!--end: Datatable -->
+                            <!--begin: Datatable -->
+                            <table class="table table-striped table-bordered table-hover terpenuhi no-footer dtr-inline"
+                                id="tabel_terpenuhi" role="grid" aria-describedby="table" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>No.</th>
+                                        <th>No. Registrasi</th>
+                                        <th>Nama Lengkap</th>
+                                        <th>Agenda</th>
+                                        <th>Tanggal</th>
+                                        <th>Jam Datang</th>
+                                        <th>Jam Pulang</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                            <!--end: Datatable -->
                         </div>
                     </div>
                 </div>
@@ -133,50 +158,84 @@
 <script src="{{ asset('plugins/custom/datatables/datatables.bundle.js') }}"></script>
 <script>
     $(document).ready(function () {
-      $('.terpenuhi').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('absensi_terpenuhi') }}",
-        columns: [
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data: 'peserta.noreg', name: 'peserta.noreg'},
-          {data: 'peserta.nama', name: 'peserta.nama'},
-          {data: 'agenda.nama', name: 'agenda.nama'},
-          {data: 'tanggal', name: 'tanggal'},
-          {data: 'jam_datang', name: 'jam_datang'},
-          {data: 'jam_pulang', name: 'jam_pulang'},
-          {data: 'action', name: 'action'},
-        ],
-        columnDefs: [
-          {
-            className: 'text-center',
-            targets: [0,7],
-          },
-        ],
-        pagingType: "full_numbers"
-      });
 
-      $('.belum').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('absensi_belum_terpenuhi') }}",
-        columns: [
-          {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-          {data: 'peserta.noreg', name: 'peserta.noreg'},
-          {data: 'peserta.nama', name: 'peserta.nama'},
-          {data: 'agenda.nama', name: 'agenda.nama'},
-          {data: 'tanggal', name: 'tanggal'},
-          {data: 'jam_datang', name: 'jam_datang'},
-          {data: 'action', name: 'action'},
-        ],
-        columnDefs: [
-          {
-            className: 'text-center',
-            targets: [0,6],
-          },
-        ],
-        pagingType: "full_numbers"
-      });
+        fill_datatable();
+
+        function fill_datatable(filter_tahap = '') {
+            //datatable-belum-absen-pulang
+            var dataTable1 = $('#tabel_belum').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                        "url"  : "{{ route('absensi_belum_terpenuhi') }}",
+                        "data" : {filter_tahap:filter_tahap}
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'peserta.noreg', name: 'peserta.noreg'},
+                    {data: 'peserta.nama', name: 'peserta.nama'},
+                    {data: 'agenda.nama', name: 'agenda.nama'},
+                    {data: 'tanggal', name: 'tanggal'},
+                    {data: 'jam_datang', name: 'jam_datang'},
+                    {data: 'action', name: 'action'},
+                ],
+                columnDefs: [
+                    {
+                    className: 'text-center',
+                    targets: [0,6],
+                    },
+                ],
+                pagingType: "full_numbers"
+            });
+
+            //datatable-absen-terpenuhi
+            var dataTable2 = $('#tabel_terpenuhi').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: {
+                        "url"  : "{{ route('absensi_terpenuhi') }}",
+                        "data" : {filter_tahap:filter_tahap}
+                },
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'peserta.noreg', name: 'peserta.noreg'},
+                    {data: 'peserta.nama', name: 'peserta.nama'},
+                    {data: 'agenda.nama', name: 'agenda.nama'},
+                    {data: 'tanggal', name: 'tanggal'},
+                    {data: 'jam_datang', name: 'jam_datang'},
+                    {data: 'jam_pulang', name: 'jam_pulang'},
+                    {data: 'action', name: 'action'},
+                ],
+                columnDefs: [
+                    {
+                    className: 'text-center',
+                    targets: [0,7],
+                    },
+                ],
+                pagingType: "full_numbers"
+            });
+        }
+
+        //filter-button
+        $('#filter').click(function(){
+            var filter_tahap = $('#filter_tahap').val();
+            if (filter_tahap != '') {
+                $('#tabel_belum').DataTable().destroy();
+                $('#tabel_terpenuhi').DataTable().destroy();
+                fill_datatable(filter_tahap);
+            } else {
+                alert('Pilih filter tahap extract yang datanya ingin ditampilkan!');
+            }
+        })
+
+        //reset-button
+        $('#reset').click(function(){
+            $('#filter_tahap').val('');
+            $('#tabel_belum').DataTable().destroy();
+            $('#tabel_terpenuhi').DataTable().destroy();
+            fill_datatable();
+        })
+
     });
 </script>
 @endsection

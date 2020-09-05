@@ -42,7 +42,18 @@ class AbsensiController extends Controller
     public function absensi_terpenuhi(Request $request)
     {
         if ($request->ajax()) {
-            $absensis = Absensi::with('peserta', 'agenda')->where('status', '=', 'Terpenuhi')->get();
+
+            if (!empty($request->filter_tahap)) {
+                $absensis = Absensi::with('peserta', 'agenda')
+                            ->where('status', '=', 'Terpenuhi')
+                            ->where('tahap_id', '=', $request->filter_tahap)
+                            ->get();
+            }
+            else {
+                $absensis = Absensi::with('peserta', 'agenda')
+                            ->where('status', '=', 'Terpenuhi')
+                            ->get();
+            }
 
             return DataTables::of($absensis)
                 ->addColumn('action', function ($absensi) {
@@ -71,8 +82,18 @@ class AbsensiController extends Controller
     public function absensi_belum_terpenuhi(Request $request)
     {
         if ($request->ajax()) {
-            $absensis = Absensi::with('peserta', 'agenda')->where('status', '=', 'Belum Terpenuhi')->get();
 
+            if (!empty($request->filter_tahap)) {
+                $absensis = Absensi::with('peserta', 'agenda')
+                            ->where('status', '=', 'Belum Terpenuhi')
+                            ->where('tahap_id', '=', $request->filter_tahap)
+                            ->get();
+            }
+            else {
+                $absensis = Absensi::with('peserta', 'agenda')
+                            ->where('status', '=', 'Belum Terpenuhi')
+                            ->get();
+            }
             return DataTables::of($absensis)
                 ->addColumn('action', function ($absensi) {
                     return view('absensi.index_action_confirm', compact('absensi'))->render();
