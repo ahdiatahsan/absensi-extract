@@ -15,7 +15,7 @@ class Tahap extends Model
         'nama'
     ];
 
-    public function user()
+    public function absensi()
     {
         return $this->hasMany('App\Absensi', 'tahap_id');
     }

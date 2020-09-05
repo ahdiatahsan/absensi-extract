@@ -15,7 +15,7 @@ class Agenda extends Model
         'nama'
     ];
 
-    public function user()
+    public function absensi()
     {
         return $this->hasMany('App\Absensi', 'agenda_id');
     }

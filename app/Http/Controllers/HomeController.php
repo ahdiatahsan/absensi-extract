@@ -27,11 +27,13 @@ class HomeController extends Controller
         $peserta = DB::table('pesertas')->count();
         $konsentrasi = DB::table('konsentrasis')->count();
         $agenda = DB::table('agendas')->count();
+        $tahap = DB::table('tahaps')->count();
 
         return view('home', compact(
             'peserta',
             'konsentrasi',
-            'agenda'
+            'agenda',
+            'tahap'
         ));
     }
 }
