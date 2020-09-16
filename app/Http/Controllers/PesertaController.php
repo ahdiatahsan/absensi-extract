@@ -63,12 +63,14 @@ class PesertaController extends Controller
             'noreg' => 'required|max:255|unique:pesertas,noreg',
             'nama' => 'required|max:255',
             'konsentrasi' => 'required|max:255',
+            'menginap' => 'required|max:255'
         ]);
 
         Peserta::create([
             'noreg' => $request['noreg'],
             'nama' => $request['nama'],
-            'konsentrasi_id' => $request['konsentrasi']
+            'konsentrasi_id' => $request['konsentrasi'],
+            'menginap' => $request['menginap']
         ]);
 
         return redirect()->route('peserta.index')->with('success', 'Peserta (' . $request['noreg'] . ') ' . $request['nama'] . ' telah ditambah.');
@@ -113,12 +115,14 @@ class PesertaController extends Controller
         $request->validate([
             'noreg' => "required|max:255|unique:pesertas,noreg,$peserta->id",
             'nama' => 'required|max:255',
-            'konsentrasi' => 'required|max:255'
+            'konsentrasi' => 'required|max:255',
+            'menginap' => 'required|max:255'
         ]);
 
         $peserta->noreg = $request['noreg'];
         $peserta->nama = $request['nama'];
         $peserta->konsentrasi_id = $request['konsentrasi'];
+        $peserta->menginap = $request['menginap'];
         $peserta->save();
 
         return redirect()->route('peserta.index')

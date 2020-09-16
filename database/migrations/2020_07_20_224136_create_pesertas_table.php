@@ -18,6 +18,7 @@ class CreatePesertasTable extends Migration
             $table->string('noreg')->unique();
             $table->string('nama');
             $table->unsignedBigInteger('konsentrasi_id');
+            $table->string('menginap');
             $table->timestamps();
 
             $table->foreign('konsentrasi_id')->references('id')->on('konsentrasis');

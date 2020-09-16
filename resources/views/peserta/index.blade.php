@@ -79,6 +79,7 @@
                             <th>No. Registrasi</th>
                             <th>Nama Lengkap</th>
                             <th>Konsentrasi</th>
+                            <th>Hari Agenda Menginap</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -104,12 +105,13 @@
           {data: 'noreg', name: 'noreg'},
           {data: 'nama', name: 'nama'},
           {data: 'konsentrasi.nama', name: 'konsentrasi.nama'},
+          {data: 'menginap', name: 'menginap'},
           {data: 'action', name: 'action'},
         ],
         columnDefs: [
           {
             className: 'text-center',
-            targets: [0,3],
+            targets: [0,4],
           },
         ],
         pagingType: "full_numbers"

@@ -14,7 +14,7 @@ class Peserta extends Model
      * @var array
      */
     protected $fillable = [
-        'noreg', 'nama', 'konsentrasi_id'
+        'noreg', 'nama', 'konsentrasi_id', 'menginap'
     ];
 
     public function konsentrasi()

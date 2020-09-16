@@ -60,6 +60,22 @@
             </select>
           </div>
 
+          <div class="form-group">
+            <label>Hari Agenda Menginap</label>
+            <select class="form-control @error('menginap') is-invalid @enderror" id="menginap"
+                name="menginap" required>
+                <option value="Belum Ada" {{ ($peserta->menginap == 'Belum Ada') ? 'selected' : '' }}>
+                    Belum Ada</option>
+                <option value="Senin"  {{ ($peserta->menginap == 'Senin') ? 'selected' : '' }}>Senin</option>
+                <option value="Selasa" {{ ($peserta->menginap == 'Selasa') ? 'selected' : '' }}>Selasa</option>
+                <option value="Rabu"   {{ ($peserta->menginap == 'Rabu') ? 'selected' : '' }}>Rabu</option>
+                <option value="Kamis"  {{ ($peserta->menginap == 'Kamis') ? 'selected' : '' }}>Kamis</option>
+                <option value="Jumat"  {{ ($peserta->menginap == 'Jumat') ? 'selected' : '' }}>Jumat</option>
+                <option value="Sabtu"  {{ ($peserta->menginap == 'Sabtu') ? 'selected' : '' }}>Sabtu</option>
+                <option value="Minggu" {{ ($peserta->menginap == 'Minggu') ? 'selected' : '' }}>Minggu</option>
+            </select>
+          </div>
+
         </div>
 
         <div class="kt-portlet__foot">
