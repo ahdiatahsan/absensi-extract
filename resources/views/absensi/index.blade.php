@@ -166,6 +166,11 @@
             var dataTable1 = $('#tabel_belum').DataTable({
                 processing: true,
                 serverSide: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    {extend: 'pageLength'},
+                    {extend: 'excel', exportOptions: { columns: [ 0, 1, 2, 3, 4, 5 ] } },
+                ],
                 ajax: {
                         "url"  : "{{ route('absensi_belum_terpenuhi') }}",
                         "data" : {filter_tahap:filter_tahap}
@@ -192,9 +197,14 @@
             var dataTable2 = $('#tabel_terpenuhi').DataTable({
                 processing: true,
                 serverSide: true,
+                dom: 'Bfrtip',
+                buttons: [
+                    {extend: 'pageLength'},
+                    {extend: 'excel', exportOptions: { columns: [ 0, 1, 2, 3, 4, 5, 6 ] } },
+                ],
                 ajax: {
-                        "url"  : "{{ route('absensi_terpenuhi') }}",
-                        "data" : {filter_tahap:filter_tahap}
+                    "url"  : "{{ route('absensi_terpenuhi') }}",
+                    "data" : {filter_tahap:filter_tahap}
                 },
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
